@@ -1,0 +1,324 @@
+# chinese DUIE2.0
+-------Vanilla Prompt(单轮)-----
+假设你是一个实体关系五元组抽取模型。我会给你头实体类型列表subject_types，尾实体类型列表object_types，关系列表relations，再给你一个句子，请你根据这三个列表抽出句子中的subject和object，并组成五元组，且形式为(subject, subject_type, relation, object, object_type)。
+
+给定的句子为："{}"
+
+relations：['所属专辑', '成立日期', '海拔', '官方语言', '占地面积', '父亲', '歌手', '制片人', '导演', '首都', '主演', '董事长', '祖籍', '妻子', '母亲', '气候', '面积', '主角', '自', '校长', '丈夫', '主持人', '主题曲', '修业年限', '作曲', '号', '上映时间', '票房', '饰演', '配音', '获奖']
+
+subject_types：['国家', '行政区', '文学作品', '人物', '影视作品', '学校', '图书作品', '地点', '历史人物', '景点', '歌曲', '学科专业', '企业', '电视综艺', '机构', '企业/品牌', ' 娱乐人物']
+
+object_types：['国家', '人物', 'Text', 'Date', '地点', '气候', '城市', '歌曲', '企业', 'Number', '音乐专辑', '学校', '作品', '语言']
+
+在给定的句子中，可能包含了哪些五元组？请按照形式(subject, subject_type, relation, object, object_type)回答：
+
+--------------Stage I-------------------------------------------
+给定的句子为：""
+
+给定关系列表：['所属专辑', '成立日期', '海拔', '官方语言', '占地面积', '父亲', '歌手', '制片人', '导演', '首都', '主演', '董事长', '祖籍', '妻子', '母亲', '气候', '面积', '主角', '邮政编码', '简称', '出品公司', '注册资本', '编剧', '创始人', '毕业院校', '国籍', '专业代码', '朝代', '作者', '作词', '所在城市', '嘉宾', '总部地点', '人口数量', '代言人', '改编自', '校长', '丈夫', '主持人', '主题曲', '修业年限', '作曲', '号', '上映时间', '票房', '饰演', '配音', '获奖']
+
+在这个句子中，可能包含了哪些关系？
+请给出关系列表中的关系。
+如果不存在则回答：无
+按照元组形式回复，如（关系1，关系2，……）：
+
+--------------Stage II-------------------------------------------
+// replace st ot rt; 【】denote optional
+根据给定的句子，两个实体的类型分别为（st，ot）且之间的关系为rt，【即含义为“__的rt是__”】，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（st，ot）：
+-------------------------------------------
+根据给定的句子，两个实体的类型分别为（歌曲，人物）且之间的关系为歌手，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（歌曲，人物）：
+
+根据给定的句子，两个实体的类型分别为（歌曲，人物）且之间的关系为作词，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（歌曲，人物）：
+
+根据给定的句子，两个实体的类型分别为（歌曲，人物）且之间的关系为作曲，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（歌曲，人物）：
+
+根据给定的句子，两个实体的类型分别为（文学作品，人物）且之间的关系为主角，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（文学作品，人物）：
+
+根据给定的句子，两个实体的类型分别为（图书作品，人物）且之间的关系为作者，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（图书作品，人物）：
+
+根据给定的句子，两个实体的类型分别为（电视综艺，人物）且之间的关系为主持人，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（电视综艺，人物）：
+
+根据给定的句子，两个实体的类型分别为（电视综艺，人物）且之间的关系为嘉宾，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（电视综艺，人物）：
+
+根据给定的句子，两个实体的类型分别为（机构，Date）且之间的关系为成立日期，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（机构，Date）：
+
+根据给定的句子，两个实体的类型分别为（机构，Number）且之间的关系为占地面积，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（机构，Number）：
+
+根据给定的句子，两个实体的类型分别为（行政区，Number）且之间的关系为面积，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（行政区，Number）：
+
+根据给定的句子，两个实体的类型分别为（行政区，Number）且之间的关系为人口数量，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（行政区，Number）：
+
+根据给定的句子，两个实体的类型分别为（景点，城市）且之间的关系为所在城市，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（景点，城市）：
+
+根据给定的句子，两个实体的类型分别为（学校，人物）且之间的关系为校长，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（学校，人物）：
+
+根据给定的句子，两个实体的类型分别为（人物，学校）且之间的关系为毕业院校，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（人物，学校）：
+
+根据给定的句子，两个实体的类型分别为（影视作品，企业）且之间的关系为出品公司，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（影视作品，企业）：
+
+根据给定的句子，两个实体的类型分别为（学科专业，Text）且之间的关系为专业代码，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（学科专业，Text）：
+
+根据给定的句子，两个实体的类型分别为（影视作品，人物）且之间的关系为导演，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（影视作品，人物）：
+
+根据给定的句子，两个实体的类型分别为（影视作品，人物）且之间的关系为主演，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（影视作品，人物）：
+
+根据给定的句子，两个实体的类型分别为（企业，人物）且之间的关系为创始人，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（企业，人物）：
+
+根据给定的句子，两个实体的类型分别为（企业，人物）且之间的关系为董事长，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（企业，人物）：
+
+根据给定的句子，两个实体的类型分别为（企业/品牌，人物）且之间的关系为代言人，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（企业/品牌，人物）：
+
+根据给定的句子，两个实体的类型分别为（企业，地点）且之间的关系为总部地点，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（企业，地点）：
+
+根据给定的句子，两个实体的类型分别为（企业，Number）且之间的关系为注册资本，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（企业，Number）：
+
+根据给定的句子，两个实体的类型分别为（影视作品，人物）且之间的关系为制片人，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（影视作品，人物）：
+
+根据给定的句子，两个实体的类型分别为（影视作品，人物）且之间的关系为编剧，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（影视作品，人物）：
+
+根据给定的句子，两个实体的类型分别为（歌曲，音乐专辑）且之间的关系为所属专辑，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（歌曲，音乐专辑）：
+
+根据给定的句子，两个实体的类型分别为（人物，地点）且之间的关系为祖籍，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（人物，地点）：
+
+根据给定的句子，两个实体的类型分别为（人物，国家）且之间的关系为国籍，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（人物，国家）：
+
+根据给定的句子，两个实体的类型分别为（国家，城市）且之间的关系为首都，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（国家，城市）：
+
+根据给定的句子，两个实体的类型分别为（历史人物，Text）且之间的关系为朝代，即含义为“__是__朝代的”，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（历史人物，Text）：
+
+根据给定的句子，两个实体的类型分别为（历史人物，Text）且之间的关系为号，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（历史人物，Text）：
+
+根据给定的句子，两个实体的类型分别为（机构，Text）且之间的关系为简称，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（机构，Text）：
+
+根据给定的句子，两个实体的类型分别为（行政区，气候）且之间的关系为气候，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（行政区，气候）：
+
+根据给定的句子，两个实体的类型分别为（影视作品，Date）且之间的关系为上映时间，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（影视作品，Date）：
+
+根据给定的句子，两个实体的类型分别为（影视作品，Number）且之间的关系为票房，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（影视作品，Number）：
+
+根据给定的句子，两个实体的类型分别为（影视作品，作品）且之间的关系为改编自，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（影视作品，作品）：
+
+根据给定的句子，两个实体的类型分别为（影视作品，歌曲）且之间的关系为主题曲，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（影视作品，歌曲）：
+
+根据给定的句子，两个实体的类型分别为（人物，人物）且之间的关系为父亲，即含义为“__的父亲是__”，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（人物，人物）：
+
+根据给定的句子，两个实体的类型分别为（人物，人物）且之间的关系为母亲，即含义为“__的母亲是__”，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（人物，人物）：
+
+根据给定的句子，两个实体的类型分别为（人物，人物）且之间的关系为妻子，即含义为“__的妻子是__”，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（人物，人物）：
+
+根据给定的句子，两个实体的类型分别为（人物，人物）且之间的关系为丈夫，即含义为“__的丈夫是__”，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（人物，人物）：
+
+根据给定的句子，两个实体的类型分别为（娱乐人物，人物）且之间的关系为饰演，即含义为“__饰演__”，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（娱乐人物，人物）：
+
+根据给定的句子，两个实体的类型分别为（娱乐人物，人物）且之间的关系为配音，即含义为“__给__配音”，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（娱乐人物，人物）：
+
+根据给定的句子，两个实体的类型分别为（娱乐人物，奖项）且之间的关系为获奖，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（娱乐人物，奖项）：
+
+根据给定的句子，两个实体的类型分别为（学科专业，Number）且之间的关系为修业年限，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（学科专业，Number）：
+
+根据给定的句子，两个实体的类型分别为（地点，Number）且之间的关系为海拔，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（地点，Number）：
+
+根据给定的句子，两个实体的类型分别为（国家，语言）且之间的关系为官方语言，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（国家，语言）：
+
+根据给定的句子，两个实体的类型分别为（行政区，Text）且之间的关系为邮政编码，请找出这两个实体，如果有多组，则按组全部列出。
+如果不存在则回答：无
+按照表格形式回复，表格有两列且表头为（行政区，Text）：
+
+--------complex object-----------------------------------------------
+{}在哪个影视作品饰演{}？
+如果不知道则回答：无
+影视作品：
+---------------------------
+{}在哪个影视作品配音{}？
+如果不知道则回答：无
+影视作品：
+---------------------------
+{}的上映地点为？
+如果不知道则回答：无
+地点：
+---------------------------
+{}的票房获得地点为？
+如果不知道则回答：无
+地点：
+---------------------------
+{}获{}的作品为？
+如果不知道则回答：无
+作品：
+
+在什么Date，{}获{}？
+如果不知道则回答：无
+Date：
+
+在第period届，{}获{}？
+如果不知道则回答：无
+period：
+
+
+# english NYT11-HRL
+-------Vanilla Prompt(单轮)-----
+Suppose you are an entity-relationship triple extraction model. I'll give you list of head entity types: subject_types, list of tail entity types: object_types, list of relations: relations. Give you a sentence, please extract the subject and object in the sentence based on these three lists, and form a triplet in the form of (subject, relation, object).
+
+The given sentence is "".
+
+relations: ['location-contains', 'administrative_division-country', 'person-place_lived', 'person-company', 'person-nationality', 'company-founders', 'country-administrative_divisions', 'person-children', 'country-capital', 'deceased_person-place_of_death', 'neighborhood-neighborhood_of', 'person-place_of_birth']
+
+subject_types: ['organization', 'person', 'location', 'country']
+
+object_types: ['person', 'location', 'country', 'organization', 'city']
+
+In the given sentence, what triples might be contained? Please answer in the form (subject, relation, object):
+--------------Stage I-------------------------------------------
+The given sentence is ""
+
+List of given relations: ['location-located_in', 'administrative_division-country', 'person-place_lived', 'person-company', 'person-nationality', 'company-founders', 'country-administrative_divisions', 'person-children', 'country-capital', 'deceased_person-place_of_death', 'neighborhood-neighborhood_of', 'person-place_of_birth']
+
+What relations in the given list might be included in this given sentence?
+If not present, answer: none.
+Respond as a tuple, e.g. (relation 1, relation 2, ......):
+
+--------------Stage II-------------------------------------------
+According to the given sentence, the two entities are of type ('organization', 'person') and the relation between them is 'company-founders', find the two entities and list them all by group if there are multiple groups.
+If not present, answer: none.
+Respond in the form of a table with two columns and a header of ('organization', 'person'):
+---------------------------
+According to the given sentence, the two entities are of type ('person', 'location') and the relation between them is 'person-place_of_birth', find the two entities and list them all by group if there are multiple groups.
+If not present, answer: none.
+Respond in the form of a table with two columns and a header of ('person', 'location'):
+---------------------------
+According to the given sentence, the two entities are of type ('person', 'location') and the relation between them is 'deceased_person-place_of_death', find the two entities and list them all by group if there are multiple groups.
+If not present, answer: none.
+Respond in the form of a table with two columns and a header of ('person', 'location'):
+---------------------------
+According to the given sentence, the two entities are of type ('location', 'location') and the relation between them is 'neighborhood-neighborhood_of', find the two entities and list them all by group if there are multiple groups.
+If not present, answer: none.
+Respond in the form of a table with two columns and a header of ('location', 'location'):
+---------------------------
+According to the given sentence, the two entities are of type ('person', 'country') and the relation between them is 'person-nationality', find the two entities and list them all by group if there are multiple groups.
+If not present, answer: none.
+Respond in the form of a table with two columns and a header of ('person', 'country'):
+---------------------------
+According to the given sentence, the two entities are of type ('person', 'organization') and the relation between them is 'person-company', find the two entities and list them all by group if there are multiple groups.
+If not present, answer: none.
+Respond in the form of a table with two columns and a header of ('person', 'organization'):
+---------------------------
+According to the given sentence, the two entities are of type ('person', 'location') and the relation between them is 'person-place_lived', find the two entities and list them all by group if there are multiple groups.
+If not present, answer: none.
+Respond in the form of a table with two columns and a header of ('person', 'location'):
+---------------------------
+According to the given sentence, the two entities are of type ('country', 'city') and the relation between them is 'country-capital', find the two entities and list them all by group if there are multiple groups.
+If not present, answer: none.
+Respond in the form of a table with two columns and a header of ('country', 'city'):
+---------------------------
+According to the given sentence, the two entities are of type ('person', 'person') and the relation between them is 'person-children', find the two entities and list them all by group if there are multiple groups.
+If not present, answer: none.
+Respond in the form of a table with two columns and a header of ('person', 'person'):
+---------------------------
+According to the given sentence, the two entities are of type ('location', 'location') and the relation between them is 'location-located_in', find the two entities and list them all by group if there are multiple groups.
+If not present, answer: none.
+Respond in the form of a table with two columns and a header of ('location', 'location'):
+---------------------------
+According to the given sentence, the two entities are of type ('location', 'country') and the relation between them is 'administrative_division-country', find the two entities and list them all by group if there are multiple groups.
+If not present, answer: none.
+Respond in the form of a table with two columns and a header of ('location', 'country'):
+---------------------------
+According to the given sentence, the two entities are of type ('country', 'location') and the relation between them is 'country-administrative_divisions', find the two entities and list them all by group if there are multiple groups.
+If not present, answer: none.
+Respond in the form of a table with two columns and a header of ('country', 'location'):
+
+
