@@ -5,10 +5,14 @@ from revChatGPT.V1 import Chatbot
 import re
 import openai
 import itertools
+import os
+os.environ["http_proxy"] = "http://127.0.0.1:33211"
+os.environ["https_proxy"] = "http://127.0.0.1:33211"
 
 df_access = [
-    #('@gYaKlfLGewYYkmZb7T3BlbkFJouvA5wegTYHbPcgWgI4D','sk-1Ni')
-    ('@0VKAUoLjPeOeZcdhgT3BlbkFJSLe3p2cTL8bPWg1iFOGM','sk-mEV')
+    # ('@gYaKlfLGewYYkmZb7T3BlbkFJouvA5wegTYHbPcgWgI4D','sk-1Ni')
+    # ('@GeIPI7141Y2ipqiJxT3BlbkFJNatL8CyKsIwFCsyOcxEW','sk-P9G')
+    ('AxGvIMS2vWSlRaKJPT3BlbkFJo6Q0NbqHKb3cmz4SqcAL','sk-5zV')
 ]
 
 df_ret = {
@@ -384,18 +388,18 @@ all_keys = itertools.cycle(keys)
 def create(**args):
     global all_keys
     openai.api_key = next(all_keys)
-
     try:
-        result = openai.ChatCompletion.create(**args)
+        result = openai.ChatCompletion.acreate(**args)
     except openai.error.RateLimitError:
         result = create(**args)
-    
+    # print("result:",result)
     return result
 
 
 def chat(mess):
-    # openai.proxy = 'http://127.0.0.3000' # 根据自己服务器的vpn情况设置proxy；如果是在自己电脑线下使用，可以在电脑上开vpn然后不加此句代码。
-    openai.api_base = "https://chatdemo.deno.dev/v1" #或者利用反向代理openai.com（代理获取：https://github.com/justjavac/openai-proxy）（注释掉上面那句代码）
+    # openai.api_key = os.getenv("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")
+    # openai.proxy = 'http://127.0.0.1:33210' # 根据自己服务器的vpn情况设置proxy；如果是在自己电脑线下使用，可以在电脑上开vpn然后不加此句代码。
+    # openai.api_base = "https://chat.gewx6011.workers.dev/v1" #或者利用反向代理openai.com（代理获取：https://github.com/justjavac/openai-proxy）（注释掉上面那句代码）
     responde = create(
         model="gpt-3.5-turbo",
         messages=mess
@@ -423,7 +427,7 @@ def chatie(input_data):
 
     ## chatgpt
     try:
-        #openai.api_key = input_data['access']
+        openai.api_key = input_data['access']
         chatbot = chat
     except Exception as e:
         print('---chatbot---')
@@ -466,11 +470,11 @@ def chatie(input_data):
     return input_data
 
 if __name__=="__main__":
-    p = '''第五部：《如懿传》《如懿传》是一部古装宫廷情感电视剧，由汪俊执导，周迅、霍建华、张钧甯、董洁、辛芷蕾、童瑶、李纯、邬君梅等主演'''
+    # p = '''第五部：《如懿传》《如懿传》是一部古装宫廷情感电视剧，由汪俊执导，周迅、霍建华、张钧甯、董洁、辛芷蕾、童瑶、李纯、邬君梅等主演'''
     #p = '''Mr. Johnson retired before the 2005 season and briefly worked as a football analyst for WBZ-TV in Boston .'''
     #'''Four other Google executives the chief financial officer , George Reyes ; the senior vice president for business operations , Shona Brown ; the chief legal officer , David Drummond ; and the senior vice president for product management , Jonathan Rosenberg earned salaries of $ 250,000 each .'''
     # -------
-    #p = '''中国共产党创立于中华民国大陆时期，由陈独秀和李大钊领导组织。'''
+    p = '''中国共产党创立于中华民国大陆时期，由陈独秀和李大钊领导组织。'''
     #p = '''James worked for Google in Beijing, the capital of China.'''
     # --------
     #p = '''在2022年卡塔尔世界杯决赛中，阿根廷以点球大战险胜法国。'''
@@ -480,7 +484,7 @@ if __name__=="__main__":
       "sentence": p,
       "type": "",
       "access": "",
-      "task": "RE",
+      "task": "NER",
       "lang": "chinese",
     }
     post_data=chatie(ind)
